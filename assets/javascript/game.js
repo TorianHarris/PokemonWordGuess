@@ -74,6 +74,7 @@ let game = {
         {
             game.stateMessage = "Better luck next time... Press any key to try again."
             game.loses++;
+            this.hiddenWord = this.currentWord;
             this.isPlaying = false;
         }
     },
