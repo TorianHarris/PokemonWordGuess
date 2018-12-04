@@ -37,20 +37,14 @@ let game = {
             indices.push(idx);
             idx = this.currentWord.indexOf(char, idx + 1);
         }
-        //this.hiddenWord = this.hiddenWord.replace(this.hiddenWord[idx], char);
+
         for(let i = 0; i < indices.length; i++)
         {
-            function replaceAt(string, index, replace) {
-                return this.hiddenWord.substring(0, ) + replace + string.substring(index + 1);
-              }
+            this.hiddenWord = this.hiddenWord.substring(0, indices[i]) + 
+            char + this.hiddenWord.substring(indices[i] + 1);
         }
-
-        this.hiddenWord = this.hiddenWord.replace(this.hiddenWord[indices[i]], char);
-        console.log(indices);
-        console.log(this.hiddenWord);
+        
         this.updateWord();
-        //return indices;
-        // [0, 2, 4]
     },
 
     updateWord: function () {
