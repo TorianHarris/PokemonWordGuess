@@ -8,18 +8,43 @@
     <title>Pokemon Word Guess</title>
     <!-- link to PokeAPI wrapper -->
     <script src="https://rawgit.com/PokeAPI/pokeapi-js-wrapper/master/dist/index.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Name that Pokemon!</h1>
-    <p id="winScore">Wins: 0</p>
-    <p id="loseScore">Loses: 0</p>
-    <p id="guessesRemaining">Guesses Left: 10</p>
-    <p id="wordToGuess" style = "letter-spacing: 3px"></p>
-    <p style="font-weight: bold">Incorrect guesses:</p>
-    <p id="guessedLetters"></p>
-    <hr>
-    <p id="endGameMessage"style="font-weight: bold"></p>
+    <div class="card mx-4 my-3">
+        <div class="card-header bg-danger text-white">
+            <h1 class="text-center">Name that Pokemon!</h1>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p id="winScore" class="card-text">Wins: 0</p>
+                    <p id="loseScore" class="card-text">Loses: 0</p>
+                    <p id="guessesRemaining" class="card-text">Guesses Left: 10</p>
+                    <p id="wordToGuess" style="letter-spacing: 3px" class="card-text"></p>
+                    <h5 class="card-text">Incorrect guesses:</h5>
+                    <p id="guessedLetters" class="card-text"></p>
+                    <h5 id="endGameMessage" class="card-text"></h5>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus labore rem dolor mollitia, eius
+                    eos dolore doloremque laboriosam possimus nam. Amet enim beatae earum libero maxime tenetur dolore
+                    ut consequatur!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <script src="assets/javascript/game.js"></script>
 </body>
 

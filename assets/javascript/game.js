@@ -32,6 +32,8 @@ let game = {
         for (let i = 0; i < this.currentWord.length; i++) {
             this.hiddenWord += "_";
         }
+        if(this.currentWord.indexOf('-') > 0)
+            this.compareChar('-');
         this.updateDoc();
         console.log(this.currentWord);
     },
