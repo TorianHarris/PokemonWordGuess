@@ -85,7 +85,7 @@ let game = {
             Press any key to play again.`;
             game.wins++;
             this.isPlaying = false;
-            this.addToPokedex(this.currentPokemon);
+            this.addToPokedex();
         }
 
         if (this.guessesLeft === 0) {
@@ -102,35 +102,35 @@ let game = {
         let data = JSON.parse(localStorage.getItem("POKEDEX"));
         for (let i = 0; i < data.length; i++)
         {
-            let dataToPoke = new Pokemon(data[i].name, data[i].entry);
-            this.addToPokedex(dataToPoke);
+            this.currentPokemon = new Pokemon(data[i].name, data[i].entry);
+            this.addToPokedex();
         }
         //console.log(data);
     },
 
-    addToPokedex: function (poke) {
-        this.pokedex.push(poke);
-        localStorage.setItem("POKEDEX", JSON.stringify(this.pokedex));
+    addToPokedex: function () {
+        this.pokedex.push(this.currentPokemon);
         let newEntry = document.createElement('ls');
         newEntry.style = "max-height: 75px";
-        if (poke.entry % 2 == 1)
+        if (this.currentPokemon.entry % 2 == 1)
             newEntry.className = "list-group-item list-group-item-dark d-flex justify-content-around align-items-center p-1";
         else
             newEntry.className = "list-group-item list-group-item-light d-flex justify-content-around align-items-center p-1";
         newEntry.innerHTML = 
         `<div class=" border-right text-center p-0">
-        <h5 class="p-2">#${poke.entry}</h5>
+        <h5 class="p-2">#${this.currentPokemon.entry}</h5>
         </div>
         <div class="pl-1">
-        <h5 class="text-capitalize">${poke.name}</h5>
+        <h5 class="text-capitalize">${this.currentPokemon.name}</h5>
         </div>
         <div style="">
-        <img src="http://pokeapi.co/media/sprites/pokemon/${poke.entry}.png"  style="width: auto; max-height: 100%" class="img-fluid ml-auto" alt="Responsive image">
+        <img src="http://pokeapi.co/media/sprites/pokemon/${this.currentPokemon.entry}.png"  style="width: auto; max-height: 100%" class="img-fluid ml-auto" alt="Responsive image">
         </div>`;
         let list = document.getElementById('pokedexEntries');
         list.insertBefore(newEntry, list.childNodes[this.sortPokedex()]);
-        this.availablePokemon.splice(this.availablePokemon.indexOf(poke), 1);
+        this.availablePokemon.splice(this.availablePokemon.indexOf(this.currentPokemon), 1);
         this.pokedex.sort(function (a, b) { return a.entry - b.entry });
+        localStorage.setItem("POKEDEX", JSON.stringify(this.pokedex));
         console.log(this.pokedex);
     },
 
@@ -139,8 +139,13 @@ let game = {
         {
             //console.log(this.currentPokemon.entry + " < " + this.pokedex[i].entry)
             if(this.currentPokemon.entry < this.pokedex[i].entry)
-            return i;
+            {
+                console.log(i);
+                return i;
+            }
+            //return i;
         }
+        console.log("this is null");
         return null;
     },
 
@@ -154,11 +159,11 @@ let game = {
     }
 };
 
-document.onkeydown = function () {
+document.addEventListener('keydown', function(event) {
     let key = event.key;
     if (game.isPlaying) {
         // if the key isn't found in currentWord and the key isn't in missingLetters...
-        if (game.compareChar(key) === 0 && game.missedLetters.indexOf(key) === -1) {
+        if (game.compareChar(key) === 0 && game.missedLetters.indexOf(key) === -1 && game.keys.indexOf(key) != -1) {
             if (game.missedLetters.length === 0)
                 game.missedLetters += key;
             else
@@ -170,7 +175,7 @@ document.onkeydown = function () {
     else {
         game.startGame();
     }
-}
+});
 
 
 game.getPokemonNames();
