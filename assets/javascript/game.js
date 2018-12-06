@@ -16,6 +16,8 @@ let game = {
     availablePokemon: [],
     currentPokemon: new Pokemon("missingNo", 0),
     pokedex: [],
+    keys: ["a","b","c","d","e","f","g","h","i","j","k","m",
+    "n","o","p","q","r","s","t","u","v","w","x","y","z"],
 
     getPokemonNames: function () {
         //create new instance of pokeapi's js wrapper, retreive the pokemon_species
@@ -32,7 +34,8 @@ let game = {
             var poke = new Pokemon(val[i].pokemon_species.name, val[i].entry_number);
             this.availablePokemon.push(poke);
         }
-
+        if(localStorage.getItem("POKEDEX") != null)
+            this.loadPokedex();
         this.startGame();
     },
 
@@ -99,14 +102,15 @@ let game = {
         let data = JSON.parse(localStorage.getItem("POKEDEX"));
         for (let i = 0; i < data.length; i++)
         {
-
+            let dataToPoke = new Pokemon(data[i].name, data[i].entry);
+            this.addToPokedex(dataToPoke);
         }
+        //console.log(data);
     },
 
     addToPokedex: function (poke) {
         this.pokedex.push(poke);
         localStorage.setItem("POKEDEX", JSON.stringify(this.pokedex));
-        this.pokedex.sort(function (a, b) { return a.entry - b.entry });
         let newEntry = document.createElement('ls');
         newEntry.style = "max-height: 75px";
         if (poke.entry % 2 == 1)
@@ -121,16 +125,19 @@ let game = {
         <h5 class="text-capitalize">${poke.name}</h5>
         </div>
         <div style="">
-        <img src="http://pokeapi.co/media/sprites/pokemon/${this.currentPokemon.entry}.png"  style="width: auto; max-height: 100%" class="img-fluid ml-auto" alt="Responsive image">
+        <img src="http://pokeapi.co/media/sprites/pokemon/${poke.entry}.png"  style="width: auto; max-height: 100%" class="img-fluid ml-auto" alt="Responsive image">
         </div>`;
         let list = document.getElementById('pokedexEntries');
         list.insertBefore(newEntry, list.childNodes[this.sortPokedex()]);
-        this.availablePokemon.splice(this.availablePokemon.indexOf(this.currentPokemon), 1);
+        this.availablePokemon.splice(this.availablePokemon.indexOf(poke), 1);
+        this.pokedex.sort(function (a, b) { return a.entry - b.entry });
+        console.log(this.pokedex);
     },
 
     sortPokedex: function () {
         for(let i = 0; i < this.pokedex.length; i++)
         {
+            //console.log(this.currentPokemon.entry + " < " + this.pokedex[i].entry)
             if(this.currentPokemon.entry < this.pokedex[i].entry)
             return i;
         }
@@ -167,6 +174,4 @@ document.onkeydown = function () {
 
 
 game.getPokemonNames();
-var user = JSON.parse(localStorage.getItem("POKEDEX"));
-console.log(user);
 

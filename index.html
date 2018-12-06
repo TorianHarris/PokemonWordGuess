@@ -18,27 +18,29 @@
             <h1 class="text-center">Name that Pokemon!</h1>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-4">
                 <div class="card-body">
                     <h5 class="card-title">A wild Pokemon appeared! <br>
                         Guess the letters in it's name to catch it!</h5>
                     <p id="winScore" class="card-text">Wins: 0</p>
                     <p id="loseScore" class="card-text">Loses: 0</p>
                     <p id="guessesRemaining" class="card-text">Guesses Left: 10</p>
-                    <p id="wordToGuess" style="letter-spacing: 3px" class="card-text"></p>
+
                     <h5 class="card-text">Incorrect guesses:</h5>
                     <p id="guessedLetters" class="card-text"></p>
                     <h5 id="endGameMessage" class="card-text"></h5>
                 </div>
             </div>
-
+            <div class="col-4">
+                <h1 id="wordToGuess" style="letter-spacing: 3px" class="card-text text-center mt-5"></h1>
+            </div>
             <div class="col-4">
                 <div class="card m-2">
-                  <h5 class="card-header bg-danger text-white text-center">Pokedex</h5>
-                  <p id="pokemonCaught" class="card-header p-1 text-center">Pokemon Caught: 12</p>
-                  <div style="height: 250px; overflow-y: auto" class="card-body p-2 bg-secondary">
-                    <ul id="pokedexEntries" class="list-group">
-                        <!-- <li style="max-height: 75px" class="list-group-item list-group-item-light d-flex justify-content-around align-items-center p-1" >
+                    <h5 class="card-header bg-danger text-white text-center">Pokedex</h5>
+                    <p id="pokemonCaught" class="card-header p-1 text-center">Pokemon Caught: 12</p>
+                    <div style="height: 250px; overflow-y: auto" class="card-body p-2 bg-secondary">
+                        <ul id="pokedexEntries" class="list-group">
+                            <!-- <li style="max-height: 75px" class="list-group-item list-group-item-light d-flex justify-content-around align-items-center p-1" >
                             <div class=" border-right text-center p-0"><h5 class="p-2">#2</h5></div> 
                             <div class="pl-1"><h5 class="">Ivysaur</h5></div>
                             <div class=""><img src="http://pokeapi.co/media/sprites/pokemon/2.png" class="img-fluid ml-auto" alt="Responsive image"></div>
@@ -51,8 +53,8 @@
                         <li class="list-group-item list-group-item-info">This is a info list group item</li>
                         <li class="list-group-item list-group-item-light">This is a light list group item</li>
                         <li class="list-group-item list-group-item-dark">This is a dark list group item</li> -->
-                      </ul>
-                  </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
