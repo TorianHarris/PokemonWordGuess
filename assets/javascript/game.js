@@ -1,3 +1,8 @@
+function Pokemon(name, entry) {
+    this.name = name;
+    this.entry = entry;
+}
+
 let game = {
     currentWord: "",
     hiddenWord: "",
@@ -7,32 +12,38 @@ let game = {
     loses: 0,
     startGuesses: 10,
     guessesLeft: 0,
-    words: [],
     isPlaying: true,
+    availablePokemon: [],
+    currentPokemon: new Pokemon("missingNo", 0),
+    pokedex: [],
 
     getPokemonNames: function () {
         //create new instance of pokeapi's js wrapper, retreive the pokemon_species
         // value from it, then send that value to fillWords()
         let P = new Pokedex.Pokedex({ protocol: 'https' });
-        P.getGenerationByName("generation-i").then(function (response) {
-            game.fillWords(response.pokemon_species);
+        P.getPokedexByName("kanto").then(function (response) {
+            //console.log(response.pokemon_entries);
+            game.createPokemon(response.pokemon_entries);
         })
     },
 
-    fillWords: function (val) {
-        //loop through value and add the pokemon names to words[];
+    createPokemon: function (val) {
         for (let i = 0; i < val.length; i++) {
-            this.words.push(val[i].name);
+            var poke = new Pokemon(val[i].pokemon_species.name, val[i].entry_number);
+            this.availablePokemon.push(poke);
         }
+
         this.startGame();
     },
 
     getRandomWord: function () {
-        this.currentWord = this.words[Math.floor(Math.random() * this.words.length)];
+        this.currentPokemon = this.availablePokemon[Math.floor(Math.random() * this.availablePokemon.length)];
+        console.log("after getrandom word " +this.availablePokemon.length)
+        this.currentWord = this.currentPokemon.name;
         for (let i = 0; i < this.currentWord.length; i++) {
             this.hiddenWord += "_";
         }
-        if(this.currentWord.indexOf('-') > 0)
+        if (this.currentWord.indexOf('-') > 0)
             this.compareChar('-');
         this.updateDoc();
         console.log(this.currentWord);
@@ -61,24 +72,65 @@ let game = {
         document.getElementById("wordToGuess").innerHTML = this.hiddenWord;
         document.getElementById("guessedLetters").innerHTML = this.missedLetters;
         document.getElementById("endGameMessage").innerHTML = this.stateMessage;
-
+        document.getElementById("pokemonCaught").innerHTML = "Pokemon Caught: " + this.pokedex.length;
     },
 
     checkGameState: function () {
-        if (this.hiddenWord === this.currentWord)
-        {
+        if (this.hiddenWord === this.currentWord) {
             game.stateMessage = "You Win! Press any key to play again.";
             game.wins++;
             this.isPlaying = false;
+            this.addToPokedex(this.currentPokemon);
         }
 
-        if (this.guessesLeft === 0)
-        {
+        if (this.guessesLeft === 0) {
             game.stateMessage = "Better luck next time... Press any key to try again."
             game.loses++;
             this.hiddenWord = this.currentWord;
             this.isPlaying = false;
         }
+    },
+
+    loadPokedex: function () {
+        let data = JSON.parse(localStorage.getItem("POKEDEX"));
+        for (let i = 0; i < data.length; i++)
+        {
+
+        }
+    },
+
+    addToPokedex: function (poke) {
+        this.pokedex.push(poke);
+        localStorage.setItem("POKEDEX", JSON.stringify(this.pokedex));
+        this.pokedex.sort(function (a, b) { return a.entry - b.entry });
+        let newEntry = document.createElement('ls');
+        newEntry.style = "max-height: 75px";
+        if (poke.entry % 2 == 1)
+            newEntry.className = "list-group-item list-group-item-dark d-flex justify-content-around align-items-center p-1";
+        else
+            newEntry.className = "list-group-item list-group-item-light d-flex justify-content-around align-items-center p-1";
+        newEntry.innerHTML = 
+        `<div class=" border-right text-center p-0">
+        <h5 class="p-2">#${poke.entry}</h5>
+        </div>
+        <div class="pl-1">
+        <h5 class="text-capitalize">${poke.name}</h5>
+        </div>
+        <div style="">
+        <img src="http://pokeapi.co/media/sprites/pokemon/${this.currentPokemon.entry}.png"  style="width: auto; max-height: 100%" class="img-fluid ml-auto" alt="Responsive image">
+        </div>`;
+        let list = document.getElementById('pokedexEntries');
+        list.insertBefore(newEntry, list.childNodes[this.sortPokedex()]);
+        this.availablePokemon.splice(this.availablePokemon.indexOf(this.currentPokemon), 1);
+    },
+
+    sortPokedex: function () {
+        for(let i = 0; i < this.pokedex.length; i++)
+        {
+            if(this.currentPokemon.entry < this.pokedex[i].entry)
+            return i;
+        }
+        return null;
     },
 
     startGame: function () {
@@ -100,7 +152,7 @@ document.onkeydown = function () {
                 game.missedLetters += key;
             else
                 game.missedLetters += ", " + key;
-            game.guessesLeft --;
+            game.guessesLeft--;
         }
         game.updateDoc();
     }
@@ -111,4 +163,6 @@ document.onkeydown = function () {
 
 
 game.getPokemonNames();
+var user = JSON.parse(localStorage.getItem("POKEDEX"));
+console.log(user);
 

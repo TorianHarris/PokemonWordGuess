@@ -20,7 +20,8 @@
         <div class="row">
             <div class="col-8">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                    <h5 class="card-title">A wild Pokemon appeared! <br>
+                        Guess the letters in it's name to catch it!</h5>
                     <p id="winScore" class="card-text">Wins: 0</p>
                     <p id="loseScore" class="card-text">Loses: 0</p>
                     <p id="guessesRemaining" class="card-text">Guesses Left: 10</p>
@@ -32,9 +33,27 @@
             </div>
 
             <div class="col-4">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus labore rem dolor mollitia, eius
-                    eos dolore doloremque laboriosam possimus nam. Amet enim beatae earum libero maxime tenetur dolore
-                    ut consequatur!</p>
+                <div class="card m-2">
+                  <h5 class="card-header">Pokedex</h5>
+                  <p id="pokemonCaught" class="card-header p-1 text-center">Pokemon Caught: 12</p>
+                  <div style="height: 250px; overflow-y: auto" class="card-body p-2">
+                    <ul id="pokedexEntries" class="list-group">
+                        <!-- <li style="max-height: 75px" class="list-group-item list-group-item-light d-flex justify-content-around align-items-center p-1" >
+                            <div class=" border-right text-center p-0"><h5 class="p-2">#2</h5></div> 
+                            <div class="pl-1"><h5 class="">Ivysaur</h5></div>
+                            <div class=""><img src="http://pokeapi.co/media/sprites/pokemon/2.png" class="img-fluid ml-auto" alt="Responsive image"></div>
+                        </li>
+                        <li class="list-group-item list-group-item-primary">This is a primary list group item</li>
+                        <li class="list-group-item list-group-item-secondary">This is a secondary list group item</li>
+                        <li class="list-group-item list-group-item-success">This is a success list group item</li>
+                        <li class="list-group-item list-group-item-danger">This is a danger list group item</li>
+                        <li class="list-group-item list-group-item-warning">This is a warning list group item</li>
+                        <li class="list-group-item list-group-item-info">This is a info list group item</li>
+                        <li class="list-group-item list-group-item-light">This is a light list group item</li>
+                        <li class="list-group-item list-group-item-dark">This is a dark list group item</li> -->
+                      </ul>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
