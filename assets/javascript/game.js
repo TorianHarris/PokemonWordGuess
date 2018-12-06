@@ -77,14 +77,18 @@ let game = {
 
     checkGameState: function () {
         if (this.hiddenWord === this.currentWord) {
-            game.stateMessage = "You Win! Press any key to play again.";
+            game.stateMessage = `You caught a 
+            ${this.currentPokemon.name.charAt(0).toUpperCase() + this.currentPokemon.name.slice(1)}! 
+            Press any key to play again.`;
             game.wins++;
             this.isPlaying = false;
             this.addToPokedex(this.currentPokemon);
         }
 
         if (this.guessesLeft === 0) {
-            game.stateMessage = "Better luck next time... Press any key to try again."
+            game.stateMessage = `The
+            ${this.currentPokemon.name.charAt(0).toUpperCase() + this.currentPokemon.name.slice(1)}
+             got away... Press any key to play again.`;
             game.loses++;
             this.hiddenWord = this.currentWord;
             this.isPlaying = false;
