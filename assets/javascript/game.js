@@ -16,7 +16,7 @@ let game = {
     availablePokemon: [],
     currentPokemon: new Pokemon("missingNo", 0),
     pokedex: [],
-    keys: ["a","b","c","d","e","f","g","h","i","j","k","m",
+    keys: ["a","b","c","d","e","f","g","h","i","j","k","l","m",
     "n","o","p","q","r","s","t","u","v","w","x","y","z"],
 
     getPokemonNames: function () {
@@ -137,7 +137,7 @@ let game = {
     sortPokedex: function () {
         for(let i = 0; i < this.pokedex.length; i++)
         {
-            //console.log(this.currentPokemon.entry + " < " + this.pokedex[i].entry)
+            console.log(this.currentPokemon.entry + " < " + this.pokedex[i].entry)
             if(this.currentPokemon.entry < this.pokedex[i].entry)
             {
                 console.log(i);
